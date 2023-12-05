@@ -8,7 +8,7 @@ on:
             - main
 
 jobs:
-    storybook-tests:
+    storybook-build:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
@@ -21,6 +21,20 @@ jobs:
 
             - name: Build Storybook
               run: npm run build-storybook
+
+    storybook-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run Storybook
+              run: npm run storybook
 
             - name: Run tests
               run: npm run test-storybook
