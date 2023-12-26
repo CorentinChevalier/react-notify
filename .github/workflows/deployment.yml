@@ -8,13 +8,13 @@ on:
             - ready_for_review
 jobs:
     call-storybook-build:
-        uses: ./build-storybook.yml
+        uses: ./.github/workflows/build-storybook.yml
     call-interactions-and-accessibility-tests:
-        uses: ./interactions-and-accessibility-tests.yml
+        uses: ./.github/workflows/interactions-and-accessibility-tests.yml
     call-deploy-storybook-on-chromatic:
         needs:
             - call-storybook-build
             - call-interactions-and-accessibility-tests
-        uses: ./deploy-storybook.yml
+        uses: ./.github/workflows/deploy-storybook.yml
         secrets:
             chromaticToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
