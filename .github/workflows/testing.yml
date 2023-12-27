@@ -1,0 +1,12 @@
+name: 'Tests'
+on:
+    push:
+        branches-ignore:
+            - main
+jobs:
+    call-storybook-build:
+        name: 'Storybook Build'
+        uses: ./.github/workflows/build-storybook.yml
+    call-interactions-and-accessibility-tests:
+        name: 'Interactions and accessibility tests'
+        uses: ./.github/workflows/interactions-and-accessibility-tests.yml

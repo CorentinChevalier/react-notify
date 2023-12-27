@@ -1,0 +1,23 @@
+name: 'Tests and deployment'
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        types:
+            - ready_for_review
+jobs:
+    call-storybook-build:
+        name: 'Storybook Build'
+        uses: ./.github/workflows/build-storybook.yml
+    call-interactions-and-accessibility-tests:
+        name: 'Interactions and accessibility tests'
+        uses: ./.github/workflows/interactions-and-accessibility-tests.yml
+    call-deploy-storybook-on-chromatic:
+        name: 'Deploy Storybook on Chromatic'
+        needs:
+            - call-storybook-build
+            - call-interactions-and-accessibility-tests
+        uses: ./.github/workflows/deploy-storybook.yml
+        secrets:
+            chromaticToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
