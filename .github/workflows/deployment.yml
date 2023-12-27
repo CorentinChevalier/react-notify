@@ -8,10 +8,13 @@ on:
             - ready_for_review
 jobs:
     call-storybook-build:
+        name: 'Storybook Build'
         uses: ./.github/workflows/build-storybook.yml
     call-interactions-and-accessibility-tests:
+        name: 'Interactions and accessibility tests'
         uses: ./.github/workflows/interactions-and-accessibility-tests.yml
     call-deploy-storybook-on-chromatic:
+        name: 'Deploy Storybook on Chromatic'
         needs:
             - call-storybook-build
             - call-interactions-and-accessibility-tests
